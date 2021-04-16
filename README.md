@@ -1,2 +1,2 @@
-# justBLEED-ufc-bot
-Discord UFCbot
+# justBLEED
+UFC Discord bot using Node.js and Discord API
