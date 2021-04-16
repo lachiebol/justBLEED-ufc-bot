@@ -1,0 +1,28 @@
+{
+  "name": "justBLEED-ufc-bot",
+  "description": "Discord UFCbot",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lachiebol/justBLEED-ufc-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lachiebol/justBLEED-ufc-bot/issues"
+  },
+  "homepage": "https://github.com/lachiebol/justBLEED-ufc-bot#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "discord.js": "^12.5.3",
+    "dotenv": "^8.2.0",
+    "got": "^11.8.2",
+    "jsdom": "^16.5.3",
+    "sherdog": "^0.1.10"
+  }
+}
