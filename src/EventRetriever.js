@@ -4,9 +4,16 @@ const jsdom = require("jsdom");
 const sherdog = require('sherdog');
 const { JSDOM } = jsdom;
 
-async function getEvent(event) {
-    let link = await got("https://www.sherdog.com/events/UFC-259-Blachowicz-vs-Adesanya-88003");
-    
+//TODO ADD WEIGHT CLASSES
+
+
+exports.getEvent = async function (event) {
+
+    const path = await getSherdogLink(event)
+
+    let link = await got(`https://www.sherdog.com${path}`)
+
+
     const dom = new JSDOM(link.body);
     const mainEventFighter = [...dom.window.document.querySelectorAll("div.fight > div.fighter > h3 > a > [itemprop=name]")];
     const mainEventResult = [...dom.window.document.querySelectorAll("div.fight > div.fighter > span.final_result")]
@@ -68,4 +75,29 @@ async function getEvent(event) {
  
 }
 
-getEvent('test').then((fights) => {console.log(fights)});
+this.getEvent("Brunson vs Holland").then(
+    (data) => {
+        console.log(data);
+    }
+)
+
+async function getSherdogLink (eventName) {
+    
+    //Format search strings to fit URLS
+    const eventSearch = eventName.split(" ").join('+').split("'").join("%27");
+    let eventPage = eventName.split(" ").join('-').split("'").join("");
+
+    const searchUrl= `https://www.sherdog.com/stats/fightfinder?SearchTxt=${eventSearch}&weight=&association=`;
+    console.log(searchUrl);
+    let link = await got(searchUrl);
+    
+    const dom = new JSDOM(link.body);
+    const nodeList = [...dom.window.document.querySelectorAll('table.fightfinder_result > tbody > tr > td > a')];
+
+    for(let path of nodeList) {
+        if(path.href.includes(`${eventPage}`)){
+            return path.href
+        }
+    } 
+}
+
