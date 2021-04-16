@@ -4,6 +4,9 @@ const client = new Discord.Client();
 
 const fightRetriever = require('./FighterDataRetriever');
 
+const getFighterTag = "!fighter ";
+
+
 require('dotenv').config();
 
 console.log(process.env.DISCORD_TOKEN);
@@ -12,18 +15,19 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  fightRetriever.getFighterData(msg.content).then((data) => {
-    let fightString = getFightsInFormat(data.fights);
-    msg.reply(`\nName: ${data.name}, Nickname: ${data.nickname}, Age: ${data.age}\nRecord: ${data.wins.total} - ${data.losses.total}\n\nLast 5 wins:\n${fightString}`);
+  if(msg.content.startsWith(getFighterTag)){
+      fightRetriever.getFighterData(msg.content.slice(getFighterTag.length)).then((data) => {
+        let fightString = getFightsInFormat(data.fights);
+        msg.reply(`\nName: ${data.name}, Nickname: ${data.nickname}, Age: ${data.age}\nRecord: ${data.wins.total} - ${data.losses.total}\n\nLast 5 wins:\n${fightString}`);
+      });
   }
-)
 });
 
 client.login(process.env.DISCORD_TOKEN);
 
 
 /**
- * Takes array of fighters and formats it to be displayed in discord message
+ * Takes array of fighters and formats it to be displayed
  * @param {Array} fights Array of fight objects 
  * @returns Formatted string with fighter's last 5 fights
  */
