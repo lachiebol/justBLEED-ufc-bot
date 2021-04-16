@@ -22,7 +22,11 @@ client.on('message', msg => {
 client.login(process.env.DISCORD_TOKEN);
 
 
-
+/**
+ * Takes array of fighters and formats it to be displayed in discord message
+ * @param {Array} fights Array of fight objects 
+ * @returns Formatted string with fighter's last 5 fights
+ */
 function getFightsInFormat(fights) {
   let fightStrings = ""
   for(let fight of fights.slice(0, 5)) {
