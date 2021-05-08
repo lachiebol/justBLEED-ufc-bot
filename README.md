@@ -1,6 +1,8 @@
 # justBLEED
 UFC Discord bot using Node.js and Discord API
 
+I felt like making this because there were many times where me and my friends would be watching fights on discord. We would discuss records and I thought I would be helpful if they could be pulled up into chat on demand
+
 # Commands
 
 Any fighter can be queried using the !fighter command (not just UFC fighters)
